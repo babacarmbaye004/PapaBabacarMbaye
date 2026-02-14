@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                Enregistrer un Emprunt
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="livre" class="form-label">Livre</label>
+                        <select class="form-select" id="livre" name="livre" required>
+                            <option value="">Sélectionner un livre...</option>
+                            {% for livre in livres %}
+                            <option value="{{ livre.id }}">{{ livre.titre }} ({{ livre.isbn }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateEmprunt" class="form-label">Date d'emprunt</label>
+                        <input type="date" class="form-control" id="dateEmprunt" name="dateEmprunt" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">Enregistrer</button>
+                    <a href="{% url 'liste_livres' %}" class="btn btn-secondary w-100 mt-2">Annuler</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
